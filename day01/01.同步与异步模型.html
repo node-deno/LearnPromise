@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<h1>JavaScript的运⾏顺序就是完全单线程的异步模型：同步在前，异步在后。所有的异步任务都要等待当前的同步任
+    务执⾏完毕之后才能执⾏。</h1>
+
+<script>
+    // var a = 1
+    // var b = 2
+    // var c = a + b
+    // console.log(c)
+
+
+    // //单线程同步阻塞模型      同步被称为阻塞，因为当
+    // var a=1
+    // var b=2
+    // var d1=new Date().getTime()
+    // var d2=new Date().getTime()
+    // while (d2-d1<2000){
+    //    d2=new Date().getTime()
+    // }
+    // //这段代码在输出结果之前网页会进入一个假死的状态
+    // console.log(a+b)
+
+
+    // //单线程异步模型
+    // var a = 1
+    // var b = 2
+    // setTimeout(function () {
+    //     console.log('输出了一些内容')
+    // }, 0)
+    // console.log(3)
+
+
+    // //单线程异步代码也是有特定的执行顺序，哪个异步程序需要执行时立马执行
+    // var a = 1
+    // var b = 2
+    // setTimeout(function () {
+    //     console.log('第一个')
+    // }, 1000)
+    // setTimeout(function () {
+    //     console.log('第二个')
+    // }, 500)
+    // console.log(a+b)
+
+    // //解释了异步不是多线程，异步依然是单线程进行的。第一个任务没有执行完时，第二个任务需要等待
+    // var a = 1
+    // var b = 2
+    // setTimeout(function () {
+    //     console.log('第一个任务')
+    //     var d1 = new Date().getTime()
+    //     var d2 = new Date().getTime()
+    //     while (d2 - d1 < 2000) {
+    //         d2 = new Date().getTime()
+    //     }
+    // }, 500)
+    // setTimeout(function () {
+    //     console.log('第二个任务')
+    // }, 500)
+    // console.log(a + b)
+
+    var a = 1
+    var b = 2
+    var d1 = new Date().getTime()
+    var d2 = new Date().getTime()
+    setTimeout(function () {
+        console.log('我是⼀个异步任务')
+    }, 1000)
+    while (d2 - d1 < 2000) {
+        d2 = new Date().getTime()
+        // console.log('我是一个同步阻塞任务')
+    }
+    //这段代码在输出3之前会进⼊假死状态，'我是⼀个异步任务'⼀定会在3之后输出
+    console.log(a + b)
+
+
+    //总结：JS的运行顺序是完全单线程的异步模型：同步在前，异步在后。所有异步模型都要等待当前的同步模型执行完之后才能执行。异步代码的计时是JS引擎读到异步代码时就开始执行计时，就算计时已经结束，但是同步代码没有执行完成异步代码也要等待同步代码执行完。
+
+</script>
+
+</body>
+</html>

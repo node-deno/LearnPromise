@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<script>
+
+    // // 如果这种代码再叠加几层就会形成人们常说的回调地狱，使得代码的可读性降低
+    //
+    // setTimeout(function () {
+    //     //第⼀秒后执⾏的逻辑
+    //     console.log('第⼀秒之后发⽣的事情')
+    //     setTimeout(function () {
+    //         //第⼆秒后执⾏的逻辑
+    //         console.log('第⼆秒之后发⽣的事情')
+    //         setTimeout(function () {
+    //             //第三秒后执⾏的逻辑
+    //             console.log('第三秒之后发⽣的事情')
+    //         }, 1000)
+    //     }, 1000)
+    // }, 1000)
+
+
+    //使用Promise拆解setTimeout流程控制
+    //但是通过Promise对象的代码量提升了一倍
+    var p = new Promise(function (resolve) {
+        setTimeout(function () {
+            resolve()
+        }, 100)
+    })
+    p.then(function () {
+        console.log('第一秒之后发生的事')
+        return new Promise(function (resolve) {
+            setTimeout(function () {
+                resolve()
+            }, 1000)
+        })
+    }).then(function () {
+        console.log('第二秒之后发生的事')
+        return new Promise(function (resolve) {
+            setTimeout(function () {
+                resolve()
+            }, 1000)
+        })
+    }).then(function () {
+        console.log('第三秒之后发生的事')
+    })
+
+</script>
+</body>
+</html>

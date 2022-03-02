@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<script>
+
+    function test(fn) {
+        fn()
+    }
+    console.log(1)
+    //fn就是一个回调函数
+    test(function () {
+        console.log('我是回调函数')
+    })
+    console.log(2)
+    //回调函数不是异步，是同步的
+
+
+
+    //在异步中需要借助回调函数实现异步，因为需要将异步中的函数放在异步任务队列中挂起，等待主程序执行完毕之后才能执行
+    function abc(fn) {
+        setTimeout(fn, 0)
+    }
+    console.log(1)
+    abc(function () {
+        console.log(2)
+    })
+    console.log(3)
+
+</script>
+
+</body>
+</html>

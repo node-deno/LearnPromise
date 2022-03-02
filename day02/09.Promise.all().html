@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+
+    //Promise.all([promise对象,promise对象,...]).then(回调函数)
+
+    //promise.all相当于统⼀处理了
+    //多个promise任务，保证处理的这些所有promise
+    //对象的状态全部变成为fulfilled之后才会出发all的
+    //.then函数来保证将放置在all中的所有任务的结果返回
+    let p1 = new Promise((resolve, reject) => {
+        setTimeout(() => {
+            resolve('第⼀个promise执⾏完毕')
+        }, 1000)
+    })
+    let p2 = new Promise((resolve, reject) => {
+        setTimeout(() => {
+            reject('第⼆个promise执⾏完毕')
+        }, 200)
+    })
+    let p3 = new Promise((resolve, reject) => {
+        setTimeout(() => {
+            resolve('第三个promise执⾏完毕')
+        }, 300)
+    })
+    //如果all()中的所有Promise全部正确执行之后执行then中的方法，并且根据数组中Promise的顺序返回相应的数据
+    //如果all()中的Promise没有全部正确执行,那么会执行catch中的方法，并且只要有一个异常那么就会终止其他没有完成的Promise，直接执行catch
+    Promise.all([p1, p3, p2]).then(res => {
+        console.log(res)
+    }).catch(function (err) {
+        console.error(err)
+    }).finally(function () {
+        console.log('无论啥时候我都要执行---finally')
+    })
+
+</script>
+</body>
+</html>

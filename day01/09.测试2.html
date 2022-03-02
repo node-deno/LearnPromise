@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<script>
+
+    // 根据下述代码看控制台输出的内容
+    document.addEventListener('click', function () {
+        Promise.resolve().then(() => console.log(1));
+        console.log(2);
+    })
+    document.addEventListener('click', function () {
+        Promise.resolve().then(() => console.log(3));
+        console.log(4);
+    })
+</script>
+
+</body>
+</html>

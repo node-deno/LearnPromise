@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<script>
+
+    // Promise.race([promise对象,promise对象,...]).then(回调函数)
+
+    //promise.race()相当于将传⼊的所有任务
+    //进⾏了⼀个竞争，他们之间最先将状态变成fulfilled的
+    //那⼀个任务就会直接的触发race的.then函数并且将他的值
+    //返回，主要⽤于多个任务之间竞争时使⽤
+    let p1 = new Promise((resolve, reject) => {
+        setTimeout(() => {
+            resolve('第⼀个promise执⾏完毕')
+        }, 500)
+    })
+    let p2 = new Promise((resolve, reject) => {
+        setTimeout(() => {
+            reject('第⼆个promise执⾏完毕')
+        }, 2000)
+    })
+    let p3 = new Promise(resolve => {
+        setTimeout(() => {
+            resolve('第三个promise执⾏完毕')
+        }, 3000)
+    })
+
+    //race()中的Promise第一个执行完成Promise如果是正确执行的话那么执行then，如果第一个执行完成的Promise是错误执行的话那么执行catch
+    Promise.race([p1, p3, p2]).then(res => {
+        console.log(res)
+    }).catch(function (err) {
+        console.error(err)
+    })
+
+</script>
+
+</body>
+</html>

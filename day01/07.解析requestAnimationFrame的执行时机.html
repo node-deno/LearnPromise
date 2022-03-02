@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<script>
+
+    // requestAnimationFrame是请求下⼀次重绘事件，所以他的执⾏频率要参考浏览器的刷新率
+
+    let i = 0;
+    let d = new Date().getTime()
+    let d1 = new Date().getTime()
+    function loop() {
+        d1 = new Date().getTime()
+        i++
+        //当间隔时间超过1秒时执⾏
+        if ((d1 - d) >= 1000) {
+            d = d1
+            console.log('requestAnimationFrame每秒执行'+i)
+            i = 0
+            console.log('经过了1秒')
+        }
+        requestAnimationFrame(function (){
+            loop()
+        })
+    }
+    loop()
+
+//    requestAnimationFrame每秒大概执行165次，执行一次用时6.06ms
+
+</script>
+
+</body>
+</html>

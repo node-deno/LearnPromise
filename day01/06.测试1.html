@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<script>
+
+    // 同一类的宏任务如果时间节点相同的话是按照代码的顺序进行先后执行。
+    // 所以输出的结果timer1和timer2必须是挨着的，UI update要么是在timer1前或者timer2后
+
+    //setTimeout是人工触发的，也就是说我们加载代码时从0开始计算
+    //requestAnimationFrame是靠获取浏览器刷新的时钟信号来决定执行时机的（PS：其实这个浏览器刷新的频率就是你这个显示屏硬件的刷新评率，比如60HZ、144HZ、165HZ）
+
+    setTimeout(function () {
+        console.log('timer1')
+    }, 0)
+    requestAnimationFrame(function () {
+        console.log('UI update')
+    })
+    setTimeout(function () {
+        console.log('timer2')
+    }, 0)
+    new Promise(function executor(resolve) {
+        console.log('promise 1')
+        resolve()
+        console.log('promise 2')
+    }).then(function () {
+        console.log('promise then')
+    })
+    console.log('end')
+
+</script>
+</body>
+</html>

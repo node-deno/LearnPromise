@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    // // 递归导致栈针堆积，最终使栈溢出
+    // var i = 0;
+    // function task() {
+    //     i++
+    //     console.log(`递归了${i}次`)
+    //     task()
+    //     console.log(`递归了${i}次,完成`)
+    // }
+    // task()
+
+    //    通过异步（其他线程）突破栈针堆积，避免栈溢出
+    var i = 0;
+    function task() {
+        i++
+        console.log(`递归了${i}次`)
+        setTimeout(function () {
+            task()
+        }, 0)
+        console.log(`递归了${i}次,完成`)
+    }
+    task()
+
+    // //通过while解决递归
+    // var i = 0;
+    // function task() {
+    //     i++
+    //     console.log(`递归了${i}次`)
+    //     console.log(`递归了${i}次,完成`)
+    // }
+    // while (true){
+    //     task()
+    // }
+
+
+</script>
+</body>
+</html>

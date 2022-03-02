@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<script>
+
+    // var p = new Promise(function (resolve, reject) {
+    //     resolve('我是Promise的值')
+    // })
+    // console.log(p)
+    // p.then(function (res) {
+    //     console.log(res)
+    // }).then(function (res) {
+    //     console.log('我是第二个then')
+    //     //有两种⽅式中断Promise
+    //     // throw('我是中断的原因1')
+    //     return Promise.reject('我是中断的原因2')
+    // }).then(function (res) {
+    //     console.log(res)
+    // }).then(function (res) {
+    //     console.log(res)
+    // }).catch(function (err) {
+    //     console.error(err)
+    // })
+
+
+    var p = new Promise(function (resolve, reject) {
+        resolve('我是Promise的值')
+    })
+    var p1 = p.then(function (res) {
+    })
+    var p2 = p1.then(function () {
+        // return Promise.reject('我是一个错误')
+        return new Promise(function () {
+        })
+    })
+
+    p2.then(function (res) {
+        console.log(1)
+        console.log(res)
+    }).catch(function (err) {
+        console.log(err)
+    })
+
+    console.log(p)
+    console.log(p1)
+    console.log(p2);
+    console.log(p1 === p)
+
+</script>
+
+</body>
+</html>

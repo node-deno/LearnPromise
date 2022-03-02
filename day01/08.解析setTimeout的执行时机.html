@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<script>
+
+    let i = 0;
+    let d = new Date().getTime()
+    let d1 = new Date().getTime()
+    function loop(){
+        d1 = new Date().getTime()
+        i++
+        if((d1-d)>=1000){
+            d = d1
+            console.log('setTimeout每秒执行'+i)
+            i = 0
+            console.log('经过了1秒')
+        }
+        setTimeout(loop,0) }
+    loop()
+
+//    settTimeout每秒大概执行210次，每次用时4.76ms
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<script>
+
+    // 链式调用的原理：我们调⽤这些⽀持链式调⽤的函数的结尾时，他⼜返回了⼀个包含他⾃⼰的对象或者是⼀个新的⾃⼰，这些⽅式都可以实现链式调⽤
+    function MyPromise() {
+    }
+
+    MyPromise.prototype.then = function () {
+        console.log('then执行')
+
+        // 返回this之后，该方法就可以反复使用链式操作
+        return this
+    }
+    let p = new MyPromise()
+
+    // 当then方法中不返回实例本身就不能使用链式调用
+    // p.then().then()
+
+    var p1 = p.then()
+    console.log(p1)
+    p1.then().then()
+
+</script>
+
+</body>
+</html>

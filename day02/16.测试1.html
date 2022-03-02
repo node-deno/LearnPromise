@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<script>
+
+    async function test() {
+        console.log(3)
+        var a = await 4
+        console.log(a)
+        return 1
+    }
+    console.log(1)
+    test()
+    console.log(2)
+
+    //上述代码经过转换可以转换为，相当于一个await就等于一个.then
+    console.log(1)
+    new Promise(function (resolve) {
+        console.log(3)
+        resolve(4)
+    }).then(function (a) {
+        console.log(a)
+    })
+    console.log(2)
+
+
+</script>
+
+</body>
+</html>

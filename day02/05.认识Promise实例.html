@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<script>
+
+    // Promise对象有三种状态
+    console.log('起步')
+    var p = new Promise(function (resolve, reject) {
+        //resolve()可以触发then中的回调执行
+        // console.log('调⽤resolve')
+        // resolve('执⾏了resolve')
+
+        //reject()可以触发catch中的回调执行
+        console.log('调用reject')
+        reject('执行了reject')
+    })
+    p.then(function (res) {
+        console.log(res)
+        console.log('then执⾏')
+    }).catch(function (res) {
+        console.log(res)
+        console.log('catch执⾏')
+    }).finally(function () {
+        console.log('finally执⾏')
+    })
+    console.log('结束')
+    // console.log(p)
+
+</script>
+</body>
+</html>

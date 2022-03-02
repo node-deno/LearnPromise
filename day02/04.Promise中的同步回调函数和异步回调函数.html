@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<script>
+    console.log(1)
+    //实例化⼀个Promise对象
+    var p = new Promise(function (resolve, reject) {
+        console.log(3)
+    })
+    //通过链式调⽤控制流程
+    p.then(function () {
+        console.log('then执⾏')
+    }).catch(function () {
+        console.log('catch执⾏')
+    }).finally(function () {
+        console.log('finally执⾏')
+    })
+    console.log(2)
+
+</script>
+
+</body>
+</html>

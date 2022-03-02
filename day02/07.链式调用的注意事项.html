@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<script>
+
+    // 以下代码没有报错，因为Promise是一个封装的非常严谨的对象。在使用不规范的链式调用时Promise内部会做异常处理，所以没有报错。
+
+
+    //通过⼀个超⻓的链式调⽤我们学习⼀下链式调⽤的注意事项
+    var p = new Promise(function (resolve, reject) {
+        resolve('我是Promise的值')
+    })
+    console.log(p)
+    p.then(function (res) {
+        //该res的结果是resolve传递的参数
+        console.log(res)
+    }).then(function (res) {
+        //该res的结果是undefined
+        console.log(res)
+        return '123'
+    }).then(function (res) {
+        //该res的结果是123
+        console.log(res)
+        return new Promise(function (resolve) {
+            resolve(456)
+        })
+    }).then(function (res) {
+        //该res的结果是456
+        console.log(res)
+        return '我是直接返回的结果'
+    }).then()
+        .then('我是字符串')
+        .then(function (res) {
+            //该res的结果是“我是直接返回的结果”
+            console.log(res)
+        })
+
+
+    /*
+        1. 只要有then()并且触发了resolve，整个链条就会执⾏到结尾，这个过程中的第⼀个回调函数的参数是resolve
+        传⼊的值
+        2. 后续每个函数都可以使⽤return返回⼀个结果，如果没有返回结果的话下⼀个then中回调函数的参数就是
+        undefined
+        3. 返回结果如果是普通变量，那么这个值就是下⼀个then中回调函数的参数
+        4. 如果返回的是⼀个Promise对象，那么这个Promise对象resolve的结果会变成下⼀次then中回调的函数的参
+        数
+        5. 如果then中传⼊的不是函数或者未传值，Promise链条并不会中断then的链式调⽤，并且在这之前最后⼀次
+        的返回结果，会直接进⼊离它最近的正确的then中的回调函数作为参数
+     */
+
+</script>
+
+</body>
+</html>

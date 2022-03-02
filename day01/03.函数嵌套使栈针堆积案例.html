@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    // 函数逐级嵌套，导致JS执行栈会栈针叠加
+    function task1() {
+        console.log('task1执⾏')
+        task2()
+        console.log('task2执⾏完毕')
+    }
+    function task2() {
+        console.log('task2执⾏')
+        task3()
+        console.log('task3执⾏完毕')
+    }
+    function task3() {
+        console.log('task3执⾏')
+    }
+    task1()
+    console.log('task1执⾏完毕')
+</script>
+</body>
+</html>

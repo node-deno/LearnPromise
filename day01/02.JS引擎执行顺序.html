@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<script>
+    console.time()
+    function task1() {
+        console.log('第⼀个任务')
+    }
+    function task2() {
+        console.log('第⼆个任务')
+        console.timeEnd()
+    }
+    function task3() {
+        console.log('第三个任务')
+    }
+    function task4() {
+        console.log('第四个任务')
+    }
+    task1()
+    setTimeout(task2, 1000)
+    setTimeout(task3, 500)
+    task4()
+</script>
+
+</body>
+</html>

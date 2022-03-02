@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<script>
+
+    //创建Promise对象之后必须传进去一个回调函数，否则会报错
+    let p = new Promise(function (resolve, reject) {
+        console.log(resolve,reject)
+    })
+
+    console.log(p)
+    console.dir(Promise)
+</script>
+
+</body>
+</html>

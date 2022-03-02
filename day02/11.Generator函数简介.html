@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<script>
+
+    //该函数和普通函数不同，在执⾏的时候函数并不会运⾏并且会返回⼀个分步执⾏对象
+    //该对象存在next⽅法⽤来让程序继续执⾏，当程序遇到yield关键字的时候会停顿
+    //next返回的对象中包含value和done两个属性，value代表上⼀个yield返回的结果
+    //done代表程序是否执⾏完毕
+    function* test() {
+        var a = yield 1
+        console.log(a)
+        var b = yield 2
+        console.log(b)
+        var c = a + b
+        console.log(c)
+    }
+    //获取分步执⾏对象
+    var generator = test()
+    //输出
+    console.log(generator)
+    //步骤1 该程序从起点执⾏到第⼀个yield关键字后，step1的value是yield右侧的结果1
+    var step1 = generator.next()
+    console.log(step1)
+    //步骤2 该程序从var a开始执⾏到第2个yield后，step2的value是yield右侧的结果2
+    var step2 = generator.next()
+    console.log(step2)
+    //由于没有yield该程序从var b开始执⾏到结束
+    var step3 = generator.next()
+    console.log(step3)
+
+</script>
+
+</body>
+</html>

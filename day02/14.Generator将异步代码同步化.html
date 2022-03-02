@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<script>
+
+    /**
+     * fn:Generator函数对象
+     */
+    function generatorFunctionRunner(fn) {
+        //定义分步对象
+        let generator = fn()
+        //执⾏到第⼀个yield
+        let step = generator.next()
+        //定义递归函数
+        function loop(stepArg, generator) {
+            //获取本次的yield右侧的结果
+            let value = stepArg.value
+            //判断结果是不是Promise对象
+            if (value instanceof Promise) {
+                //如果是Promise对象就在then函数的回调中获取本次程序结果
+                //并且等待回调执⾏的时候进⼊下⼀次递归
+                value.then(function (promiseValue) {
+                    if (stepArg.done == false) {
+                        loop(generator.next(promiseValue), generator)
+                    }
+                })
+            } else {
+                //判断程序没有执⾏完就将本次的结果传⼊下⼀步进⼊下⼀次递归
+                if (stepArg.done == false) {
+                    loop(generator.next(stepArg.value), generator)
+                }
+            }
+        }
+        //执⾏动态调⽤
+        loop(step, generator)
+    }
+
+
+    function* test() {
+        let res1 = yield new Promise(function (resolve) {
+            setTimeout(function () {
+                resolve('第一步')
+            }, 100)
+        })
+        console.log(res1)
+        let res2 = yield new Promise(function (resolve) {
+            setTimeout(function () {
+                resolve('第二步')
+            }, 5000)
+        })
+        console.log(res2)
+        let res3 = yield new Promise(function (resolve) {
+            setTimeout(function () {
+                resolve('第三步')
+            }, 2000)
+        })
+        console.log(res3)
+    }
+
+
+    generatorFunctionRunner(test)
+
+</script>
+
+</body>
+</html>
