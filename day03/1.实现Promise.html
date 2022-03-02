@@ -7,48 +7,7 @@
 <body>
 
 <script>
-    function MyPromise(fn) {
-        //定义构造函数中的this指向
-        var _this = this
 
-        //promise状态
-        this.promiseState = 'pending'
-        //promise的值
-        this.promiseResult = undefined
-        //定义一个函数对象，用来注册then中的callback
-        this.thenCallback = undefined
-
-        //执行resolve之后then函数执行
-        var resolve = function (value) {
-            //更改Promise的状态和值
-            if (_this.promiseState == 'pending') {
-                console.log('=====构造函数中的resolve=====')
-                _this.promiseState = 'fulfilled'
-                _this.promiseResult = value
-            }
-        }
-        var reject = function (errValue) {
-        }
-
-        if (fn) {
-            fn(resolve, reject)
-        }
-    }
-    MyPromise.prototype.then = function (callback) {
-        console.log('原型中添加的方法then执行')
-    }
-
-
-    // console.log('start')
-    var p = new MyPromise(function (resolve, reject) {
-        resolve('我是Promise的值')
-    })
-    // console.log(p)
-    p.then(function (res) {
-        console.log(res)
-        console.log('then执行')
-    })
-    // console.log('end')
 </script>
 </body>
 </html>
