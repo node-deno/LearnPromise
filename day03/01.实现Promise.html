@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<script>
+
+    function MyPromise(fn) {
+
+        var _this = this
+
+        //Promise的状态
+        this.promiseState = 'pedding'
+        //Promise的值
+        this.promiseResult = undefined
+        //定义一个函数对象，用来注册then中的callback
+        this.thenCallback = undefined
+
+
+        var resolve = function (value) {
+            //    更改Promise的值和状态
+            if (_this.promiseState == 'pedding') {
+                _this.promiseState = 'fulfilled'
+                _this.promiseResult = value
+                setTimeout(function () {
+                    if (_this.thenCallback) {
+                        _this.thenCallback(value)
+                    }
+                })
+            }
+        }
+
+        var reject = function (errValue) {
+        }
+
+        if (fn) {
+            fn(resolve, reject)
+        }
+    }
+
+    MyPromise.prototype.then = function (callback) {
+        var _this = this
+        return new MyPromise(function (resolve, reject) {
+            _this.thenCallback = function (value) {
+                var res = callback(value)
+                resolve(res)
+            }
+        })
+    }
+
+    MyPromise.resolve = function (value) {
+        return new MyPromise(function (resolve, reject) {
+
+        })
+    }
+
+
+    var p = new MyPromise(function (resolve, reject) {
+        setTimeout(function () {
+            resolve('我是构造函数中的resolve')
+        }, 500)
+    })
+    // console.log(p)
+    p.then(function (res) {
+        console.log(res)
+        console.log('第一个then执行')
+        return 123
+    }).then(function (res) {
+        console.log(res)
+        console.log('第二个then执行')
+    }).then(function (res) {
+        console.log(res)
+        console.log('第三个then执行')
+        return MyPromise.resolve('我是第三个Promise的值')
+    }).then(function (res) {
+        console.log(res)
+        console.log('第四个then执行')
+    })
+
+</script>
+</body>
+</html>
